@@ -184,9 +184,9 @@ Here are the final scores achieved:
 
 | Profile                  | Final Score |
 |:--------------------------|------------:|
-| Standard Profile          | **48.42**   |
-| Reward Low False Positives| **29.11**   |
-| Reward Low False Negatives| **61.59**   |
+| Standard Profile          | **51.43**   |
+| Reward Low False Positives| **41.44**   |
+| Reward Low False Negatives| **63.89**   |
 
 ---
 
@@ -200,7 +200,7 @@ For reference, scores from well-known detectors on the NAB public scoreboard are
 | ARTime                     | 74.9     | 65.1    | 80.4   |
 | Numenta HTM                | 70.5–69.7| 62.6–61.7| 75.2–74.2 |
 | Random Cut Forest          | 51.7     | 38.4    | 59.7   |
-| **Our Hybrid Detector**    | **48.42** | **29.11** | **61.59** |
+| **Our Hybrid Detector**    | **51.43** | **41.44** | **63.89** |
 | Twitter ADVec              | 47.1     | 33.6    | 53.5   |
 | Windowed Gaussian          | 39.6     | 20.9    | 47.4   |
 | Bayesian Changepoint       | 17.7     | 3.2     | 32.2   |
@@ -211,7 +211,7 @@ For reference, scores from well-known detectors on the NAB public scoreboard are
  **Interpretation**:
 - Perfect score is **100** on all profiles.
 - Most practical detectors (like Random Cut Forest, Twitter ADVec) score in the **40–70 range**.
-- Our model scores **48.42** on Standard Profile — putting it **within the competitive range** compared to many real-world anomaly detection systems.
+- Our model scores **51.43** on Standard Profile — putting it **within the competitive range** compared to many real-world anomaly detection systems.
 
 All final scores are written to:
 
