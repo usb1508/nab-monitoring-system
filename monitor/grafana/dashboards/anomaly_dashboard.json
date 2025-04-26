@@ -1,0 +1,61 @@
+{
+	"id": null,
+	"title": "Anomaly Scores Dashboard",
+	"timezone": "browser",
+	"panels": [
+	  {
+		"type": "graph",
+		"title": "Anomaly Scores",
+		"datasource": "Prometheus",
+		"targets": [
+		  {
+			"expr": "nab_anomaly_score{model=~\"$model\"}",
+			"legendFormat": "{{dataset}}/{{file}}",
+			"refId": "A"
+		  }
+		],
+		"alert": {
+		  "name": "High Anomaly Score",
+		  "conditions": [
+			{
+			  "evaluator": {
+				"params": [0.8],
+				"type": "gt"
+			  },
+			  "operator": {
+				"type": "and"
+			  },
+			  "query": {
+				"params": ["A"]
+			  },
+			  "reducer": {
+				"type": "max"
+			  },
+			  "type": "query"
+			}
+		  ],
+		  "for": "1m",
+		  "frequency": "1m",
+		  "handler": 1,
+		  "message": "High anomaly score detected!",
+		  "notifications": []
+		}
+	  }
+	],
+	"templating": {
+	  "list": [
+		{
+		  "name": "model",
+		  "type": "query",
+		  "datasource": "Prometheus",
+		  "query": "label_values(nab_anomaly_score, model)",
+		  "multi": true,
+		  "includeAll": true
+		}
+	  ]
+	},
+	"schemaVersion": 27,
+	"version": 1,
+	"refresh": "30s"
+  }
+  

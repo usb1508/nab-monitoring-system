@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: nab_detector
+    static_configs:
+      - targets: ["exporter:8000"]   # container-to-container
+  - job_name: 'test-spikes'
+    static_configs:
+      - targets: ['host.docker.internal:8001']

@@ -1,0 +1,36 @@
+version: "3"
+services:
+  exporter:
+    build: ./exporter
+    command: python exporter.py --rate 30
+    volumes:                 
+      - './results:/app/results:ro'
+    ports:               
+      - "8000:8000"
+
+  prometheus:
+    image: prom/prometheus:v2.53.4
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports: ["9090:9090"]
+    depends_on: [exporter]
+
+  grafana:
+    image: grafana/grafana:11.6.1
+    environment: 
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_FEATURE_TOGGLES=alerting,ngalert
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=${GMAIL_USER}
+      - GF_SMTP_PASSWORD=${GMAIL_PASSWORD}
+      - GF_SMTP_FROM_ADDRESS=${GMAIL_USER}
+      - GF_SMTP_FROM_NAME=Grafana Alerts
+      - GF_SMTP_SKIP_VERIFY=false
+      - GF_SMTP_STARTTLS_POLICY=MandatoryStartTLS
+
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/etc/grafana/dashboards
+    ports: ["3000:3000"]
+    depends_on: [prometheus]

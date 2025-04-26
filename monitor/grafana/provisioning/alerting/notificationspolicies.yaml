@@ -1,0 +1,10 @@
+apiVersion: 1
+policies:
+  - orgId: 1
+    receiver: "default-email"
+    groupBy:
+      - model
+    groupWait: "30s"
+    groupInterval: "5m"
+    repeatInterval: "30m"
+    matchers: []
